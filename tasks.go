@@ -9,6 +9,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var errNameRequired = errors.New("name cannot be empty")
+var errProjectIDRequired = errors.New("project id cannot be empty")
+var errUserIDRequired = errors.New("user id cannot be empty")
+
 type TasksService struct {
 	store Store
 }
@@ -68,10 +72,6 @@ func (s * TasksService) handleGetTask (w http.ResponseWriter, r *http.Request) {
 
 	WriteJSON(w, http.StatusOK, t)
 }
-
-var errNameRequired = errors.New("name is required")
-var errProjectIDRequired = errors.New("project id is required")
-var errUserIDRequired = errors.New("user id is required")
 
 func validateTaskPayload(task *Task) error {
 	if task.Name == "" {

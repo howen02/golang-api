@@ -6,6 +6,15 @@ type ErrorResponse struct {
 	Error string `json:"error`
 }
 
+type User struct {
+	ID 				int64 		`json:"id"`	
+	Email 			string 		`json:"email"`	
+	FirstName 		string 		`json:"firstName"`	
+	LastName 		string 		`json:"lastName"`	
+	Password 		string  	`json:"password"`
+	CreatedAt 		time.Time 	`json:"createdAt"`	
+}
+
 type Task struct {
 	ID 				int64 		`json:"id"`	
 	Name 			string 		`json:"name"`	
@@ -15,11 +24,8 @@ type Task struct {
 	CreatedAt 		time.Time 	`json:"createdAt"`	
 }
 
-type User struct {
+type Project struct {
 	ID 				int64 		`json:"id"`	
-	Email 			string 		`json:"email"`	
-	FirstName 		string 		`json:"firstName"`	
-	LastName 		string 		`json:"lastName"`	
-	Password 		string  	`json:"password"`
+	Name 			string 		`json:"name"`	
 	CreatedAt 		time.Time 	`json:"createdAt"`	
 }

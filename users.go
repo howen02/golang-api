@@ -10,10 +10,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var errEmailRequired = errors.New("email is required")
-var errFirstNameRequired = errors.New("first name is required")
-var errLastNameRequired = errors.New("last name is required")
-var errPasswordRequired = errors.New("password is required")
+var errEmailRequired = errors.New("email cannot be empty")
+var errFirstNameRequired = errors.New("first cannot be empty")
+var errLastNameRequired = errors.New("last cannot be empty")
+var errPasswordRequired = errors.New("password cannot be empty")
 
 type UserService struct {
 	store Store
@@ -62,7 +62,7 @@ func (s *UserService) handleUserRegister (w http.ResponseWriter, r *http.Request
 	u, err := s.store.CreateUser(payload)
  
 	if err != nil {
-		WriteJSON(w, http.StatusInternalServerError, ErrorResponse{Error: "Error creating user here"})
+		WriteJSON(w, http.StatusInternalServerError, ErrorResponse{Error: "Error creating user"})
 		return
 	}
 
@@ -74,8 +74,9 @@ func (s *UserService) handleUserRegister (w http.ResponseWriter, r *http.Request
 	}
 
 
-	WriteJSON(w, http.StatusCreated, token)
-	fmt.Println(token)
+	message := "Here is your token: " + token
+	WriteJSON(w, http.StatusCreated, message)
+	fmt.Println("JWT:", token)
 }
 
 func ValidateUserPayLoad(user *User) error {

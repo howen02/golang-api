@@ -14,17 +14,16 @@ import (
 func WithJWTAuth(handlerFunc http.HandlerFunc, store Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		tokenString := FetchTokenFromRequest(r)
-
 		token, err := validateToken(tokenString)
 
 		if err != nil {
-			log.Println("failed to authenticate token")
+			log.Println("Failed to validate token")
 			denyPermission(w)
 			return
 		}
 
 		if !token.Valid {
-			log.Println("failed to authenticate token")
+			log.Println("Token is invalid")
 			denyPermission(w)
 			return
 		}
@@ -35,7 +34,7 @@ func WithJWTAuth(handlerFunc http.HandlerFunc, store Store) http.HandlerFunc {
 		_, err = store.GetUserByID(userID)
 
 		if err != nil {
-			log.Println("failed to get user")
+			log.Println("Failed to get user")
 			denyPermission(w)
 			return
 		}
